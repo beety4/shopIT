@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.dao.CartMapper">
+	<insert id="cartADD" parameterType="com.example.demo.dto.CartDTO">
+		INSERT INTO cart_table (id,num,count,title,price,saleprice,mainImg)
+		VALUES (#{id}, #{num}, #{count}, #{title}, #{price}, #{saleprice}, #{mainImg})
+	</insert>
+	<select id="cartCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM cart_table WHERE count > 0 AND id = #{id}
+	</select>
+	<select id="cartListShow" resultType="com.example.demo.dto.CartDTO">
+		SELECT * FROM cart_table WHERE id = #{id}
+	</select>
+	<delete id="cartDelete" parameterType="com.example.demo.dto.CartDTO">
+		DELETE FROM cart_table WHERE id = #{id} AND num = #{num}
+	</delete>
+	
+	
+	
+	
+</mapper>

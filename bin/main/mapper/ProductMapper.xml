@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.dao.ProductMapper">
+	<select id="boardList" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 ORDER BY rand() LIMIT 8
+	</select>
+	<select id="boardListUser" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 AND id = #{id} ORDER BY num DESC
+	</select>
+	<insert id="writeBoard" parameterType="com.example.demo.dto.ProductDTO">
+		INSERT INTO product_table (id, name, title, category, price, saleprice, content, mainImg)
+		VALUES (#{id}, #{name}, #{title}, #{category}, #{price}, #{saleprice}, #{content}, #{mainImg})
+	</insert>
+	<select id="readBoard" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 AND num = #{num}
+	</select>
+	<update id="modifyBoard" parameterType="com.example.demo.dto.ProductDTO">
+		UPDATE product_table SET id = #{id}, name = #{name}, title = #{title}, category = #{category},
+		price = #{price}, saleprice = #{saleprice}, content = #{content} 
+		WHERE num = #{num}
+	</update>
+	<update id="deleteBoard" parameterType="java.lang.Integer">
+		UPDATE product_table SET available = 0 WHERE num = #{num}
+	</update>
+	
+	<update id="viewADD" parameterType="java.lang.Integer">
+		UPDATE product_table SET view = view + 1 WHERE num = #{num}
+	</update>
+	<select id="popularList" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 ORDER BY view DESC
+	</select>
+	
+	<select id="allList" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 ORDER BY num DESC
+	</select>
+	<select id="categoryList" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 AND category = #{category} ORDER BY num DESC
+	</select>
+	<select id="categoryListRandom" resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product_table WHERE available = 1 AND category = #{category} ORDER BY rand() LIMIT 4
+	</select>
+	
+	<select id="lastNum" resultType="java.lang.Integer">
+		SELECT num FROM product_table ORDER BY num DESC LIMIT 1
+	</select>
+	
+</mapper>

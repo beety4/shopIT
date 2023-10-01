@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.dao.UserMapper">
+	<select id="getAllUserList" resultType="com.example.demo.dto.UserDTO">
+		SELECT * FROM user_table
+	</select>
+	<insert id="createUser" parameterType="com.example.demo.dto.UserDTO">
+		INSERT INTO user_table (id,pw,name,address,phone,gender,email,img)
+		VALUES (#{id}, #{pw}, #{name}, #{address}, #{phone}, #{gender}, #{email}, #{img})
+	</insert>
+	<select id="loginUser" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT pw FROM user_table WHERE id = #{lid}
+	</select>
+	<select id="getUserName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT name FROM user_table WHERE id = #{lid}
+	</select>
+	<update id="lastlogin" parameterType="java.lang.String">
+		UPDATE user_table SET lastlogin = now() WHERE id = #{id}
+	</update>
+	<select id="getUserinfo" resultType="com.example.demo.dto.UserDTO">
+		SELECT id,name,address,phone,gender,joindate,lastlogin,email,img FROM user_table WHERE id = #{id}
+	</select>
+	<update id="editUser" parameterType="com.example.demo.dto.UserDTO">
+		UPDATE user_table SET pw = #{pw}, name = #{name}, address = #{address}, phone = #{phone}, gender = #{gender}, img = #{img} WHERE id = #{id}
+	</update>
+</mapper>

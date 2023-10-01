@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.dao.EmailMapper">
+	<update id="inputKey" parameterType="com.example.demo.dto.EmailDTO">
+		UPDATE user_table SET emailhash = #{authKey} WHERE email = #{email}
+	</update>
+	<update id="setValidate" parameterType="java.lang.String">
+		UPDATE user_table SET emailcheck = 1 WHERE email = #{email}
+	</update>
+	<select id="getValidate" resultType="java.lang.String">
+		SELECT emailcheck FROM user_table WHERE id = #{id}
+	</select>
+</mapper>

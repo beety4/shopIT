@@ -1,9 +1,3 @@
-### Custom ###
-Gmailconn.java
-EmailService.java
-application.properties
-
-### Default ###
 HELP.md
 .gradle
 build/
